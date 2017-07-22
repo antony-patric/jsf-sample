@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:shiro="http://shiro.apache.org/tags">
+
+<h:head>
+	<title>Admin Home Page</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h3>Admin Home Page</h3>
+		<br />
+		<br />
+		<div>
+			<shiro:principal></shiro:principal>
+		</div>
+		<div>
+			<br /> <br />
+		</div>
+		<shiro:hasPermission name="admin:user:enable">
+			<h:outputLabel value="Enable User" />
+			<br />
+			<h:inputText value="12345" />
+			<h:commandButton value="Enable User" />
+		</shiro:hasPermission>
+		<shiro:lacksPermission name="admin:user:disable">
+			<br />
+			<br />
+			<h:outputLabel value="Disable User" />
+			<br />
+			<h:inputText value="12345" />
+			<h:commandButton value="Disable User" />
+		</shiro:lacksPermission>
+
+		<shiro:hasPermission name="admin:user:resetPassword">
+			<br />
+			<br />
+			<h:outputLabel value="Reset Password" />
+			<br />
+			<h:inputText value="12345" />
+			<h:commandButton value="Reset Password" />
+		</shiro:hasPermission>
+	</h:form>
+</h:body>
+</html>
