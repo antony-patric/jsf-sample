@@ -7,20 +7,43 @@ import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 
 @ManagedBean(name="loginBean")
-@RequestScoped
+@SessionScoped
 public class LoginBean {
 
 	private String userId;
 	
 	private String password;
+
+	private String serverIp;
+
+	private String serverLabel;
 	
+	public String getServerIp() {
+		return serverIp;
+	}
+
+	public void setServerIp(String serverIp) {
+		this.serverIp = serverIp;
+	}
+
+	public String getServerLabel() {
+		return serverLabel;
+	}
+
+	public void setServerLabel(String serverLabel) {
+		this.serverLabel = serverLabel;
+	}
+
+
 	private static final String USER_ADMIN_ROLE="admin";
 
 	public String getUserId() {
@@ -42,7 +65,8 @@ public class LoginBean {
 	public String login(){
 		System.out.println("Userid-"+getUserId());
 		System.out.println("Password-"+getPassword());
-		propertiesRead();
+//		propertiesRead();
+		setValues();
 		
 		Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken userNamePasswordToken = new UsernamePasswordToken(userId, password);
@@ -66,6 +90,19 @@ public class LoginBean {
 		}
 		
 		return null;
+	}
+
+	private void setValues(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		setServerIp(request.getServerName());
+		System.out.println(request.getRemoteAddr());
+		System.out.println(request.getRemoteHost());
+		System.out.println(request.getRemoteUser());
+		System.out.println(request.getLocalAddr());
+		System.out.println(request.getLocalName());
+		System.out.println("Server name - " + getServerIp());
+		setServerLabel(System.getenv("label"));
+		System.out.println(System.getenv("label"));
 	}
 
 	private void propertiesRead(){

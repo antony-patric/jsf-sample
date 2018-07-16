@@ -14,7 +14,9 @@
 		<br />
 		<br />
 		<div>
-			<shiro:principal></shiro:principal>
+			User - <shiro:principal></shiro:principal><br></br>
+			Server Name - <h:outputText value="#{loginBean.serverIp}" ></h:outputText><br></br>
+			Server Label - <h:outputText value="#{loginBean.serverLabel}" ></h:outputText>
 		</div>
 		<div>
 			<br /> <br />
@@ -23,7 +25,7 @@
 			<h:outputLabel value="Enable User" />
 			<br />
 			<h:inputText value="12345" />
-			<h:commandButton value="Enable User" />
+			<h:commandButton value="Enable User"/>
 		</shiro:hasPermission>
 		<shiro:lacksPermission name="admin:user:disable">
 			<br />
@@ -42,6 +44,8 @@
 			<h:inputText value="12345" />
 			<h:commandButton value="Reset Password" />
 		</shiro:hasPermission>
+        <br/>
+		<h:commandButton value="Generate Out of Memory" action="#{helloWorldBean.invokeMethod}"/>
 	</h:form>
 </h:body>
 </html>

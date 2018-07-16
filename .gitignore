@@ -1,3 +1,7 @@
 *.class
 *.war
 target/*
+/.metadata/
+/.settings/*
+/.idea/*
+/RemoteSystemsTempFiles/

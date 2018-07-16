@@ -1,6 +1,8 @@
 FROM tomcat
 
-#EXPOSE 8080
+VOLUME [ "tmp" ]
+
+EXPOSE 8080
 
 ADD settings.xml /usr/local/tomcat/conf/
 
